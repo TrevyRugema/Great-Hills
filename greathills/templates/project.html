@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<header class="header-events">
+    <div class="header-content">
+
+        <h1>Projects</h1>
+        <div class="line">
+
+        </div>
+
+    </div>
+</header>
+<br>
+
+<div class="event-erea" id="events">
+    <div class="container">
+
+        <h3 class="event-title text-center">Lastest <span class="text-danger">Projects</span>
+            <div class="line">
+
+            </div>
+        </h3>
+        {% if eventhas_previous %}
+        <div class="pagination_Page">
+        <a href="{% url 'event' %}?page={{event.previous_page_number}}">Previous Page </a>
+        {% endif %}
+        <div class="row ">
+            {% for page in event %}
+            <div class="col-md-4 event-content ">
+                <img class="img-fluid" src="{{ page.photo.url }}  " style="width:370px; height:300px" alt="">
+                <h3> {{ page.title }} <br>
+                    <i>{{ page.posted_date }}.{{ page.author }}</i>
+                </h3>
+
+                {{ page.contente_title |slice:"200" |safe }}......
+
+                
+                <div class="viewsdetails">
+                    <a class="btn text-center text-danger" href="{% url 'events_details' pk=page.pk %}"
+                        role="button">View details &raquo;</a>
+                </div>
+                <br>
+            </div>
+            {% endfor %}
+
+        </div>
+        {% if event.has_next %}
+        <a href="{% url 'event' %}?page={{event.next_page_number}}">Next Page </a>
+       {% endif %}
+     
+    </div>
+    <br>
+
+    <div class="future-events">
+        <div class="container overflow-hidden ">
+            <br>
+            <!-- <h3 class="event-title text-center">FURTURE <span class="text-danger">Projects</span> -->
+                <div class="line">
+
+                </div>
+            </h3>
+            <div class="row ">
+            {% for i in futureEV %}
+                <div class="col-md-4">
+                    <div class="p-3"><img class="img-fluid"  src="{{ i.upload_photo.url }} " style="width:250px; height:200px"
+                            alt=""></div>
+                </div>
+                <div class="col-md-8">
+                    <div class="p-3">
+                        <h3>{{ i.title }} <br>
+                            <i class="author" >{{ i.posted_date }}.{{ i.author }}</i>
+                        </h3>
+                        
+                        <p>{{ i.content_title |safe | slice:"200" }}.
+                            <a class=" text-center text-danger" href="{% url 'future_details' pk=i.pk %}" role="button">View details &raquo;</a>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <br>
+
+   
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if event.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{event.previous_page_number}}">Previous</a>
+            {% endif %}
+    
+        </span>
+        <span class="current">
+            {% if event.has_previous %}
+            Page {{ event.number }} of {{ event.paginator.num_pages }}.
+            {% endif %}
+    
+        </span>
+        <span class="next-page">
+            {% if event.has_previous %}
+            <a href="?page={{ event.next_page_number}}">Next</a>
+            {% endif %}
+    
+        </span>
+    </div>
+   
+    {% endblock %}

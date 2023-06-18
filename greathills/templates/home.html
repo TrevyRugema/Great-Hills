@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+
+<section id="navbar1">
+<header>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+ <div class="container">
+   <div class="row justify-content-md-center" >
+      <div class="col-sm">
+		
+       <div class="header-content">
+        <h2>Welcome to</h2>
+        <h1> <span >Great Hills </span></h1>
+        <div class="line">
+
+        </div>
+        <h5><span class="elim">Great Hills</span>,  All life is sacred and humanity is responsible for the well-being of all life on the planet. Natural Law applies to all inhabitants of this planet and beyond</h5>
+        <br>
+        <a href="{% url 'about'%}" class="ctn">More Details</a>
+    </div>
+</header>
+</section>
+
+
+<div class="about-erea" id="about">
+
+    <div class="container">
+        <div class="shadow p-4 mb-2 bg-white rounded ">
+            <h3 class="about-title text-center">About <span class="text-danger">US</span>
+                
+                <div class="line"></div>
+            </h3>
+            <div class="row">
+                <div class="col-md-5 about-left">
+                    <img class="img-fluid"  src="{% static 'images/kcc.jpg' %} " style="width:400px; height:350px" alt="">
+                </div>
+
+                <div class="col-md-7 about-right">
+                    <h2><span class="text-danger">Great Hills</span> De Jure Assembly</h2>
+                    <p> All malicious acts against humanity must stop immediately or be punished according to the Law of the Land.
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<div class="event-erea" id="events">
+    <div class="container">
+        <div class="shadow p-4 mb-2 bg-white rounded ">
+            <h3 class="event-title text-center">Latest <span class="text-danger">Projects</span><div class="line">
+
+            </div> </h3>
+            <div class="row ">
+                {% for post in event %}
+                <div class="col-md-4 event-content">
+                    <img class="img-fluid" src="{{ post.photo.url }} " style="width:350px; height:300px" alt="">
+                    <h3> {{ post.title }} <br>
+                        <i>{{ post.posted_date }}. {{ post.author }}</i>
+                    </h3>
+
+                    {{ post.contente_title |slice:"200" |safe }}......
+
+                    <div class="viewsdetails">
+                    <a class="btn text-center text-danger" href="{% url 'events_details' pk=post.pk %}" role="button">View details &raquo;</a>
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+	</div>
+    </div>
+ </div>
+
+    <br>
+    {% endblock %}
