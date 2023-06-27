@@ -2,30 +2,21 @@
 
 from pathlib import Path
 import os
-import environ
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Set the project base directory
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
-# False if not in os.environ because of casting above
-DEBUG = env('DEBUG')
-
-# Raises Django's ImproperlyConfigured
-# exception if SECRET_KEY not in os.environ
-SECRET_KEY = env('SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS ')
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-)-yin7pw3hug(79uyxbc7-gmd@stna%$8*-(c-$0fax1*wd*t4'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -88,41 +79,12 @@ WSGI_APPLICATION = 'restoration.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':env('DB_NAME'),
-        'USER':env('DB_USER'),
-        'PASSWORD':env('DB_PASSWORD'),
-        'HOST':env('DB_HOST'),
-        'PORT':env('DB_PORT')
+        'NAME':'restoration',
+        'USER':'postgres',
+        'PASSWORD':'Rutre',
+        'HOST':'localhost',
+        'PORT':5432
     }
-}
-
-
-# Parse database connection url strings
-# like psql://user:pass@127.0.0.1:8458/db
-DATABASES = {
-    # read os.environ['DATABASE_URL'] and raises
-    # ImproperlyConfigured exception if not found
-    #
-    # The db() method is an alias for db_url().
-    'default': env.db(),
-
-    # read os.environ['SQLITE_URL']
-    'extra': env.db_url(
-        'SQLITE_URL',
-        default='sqlite:////tmp/my-tmp-sqlite.db'
-    )
-}
-
-
-CACHES = {
-    # Read os.environ['CACHE_URL'] and raises
-    # ImproperlyConfigured exception if not found.
-    #
-    # The cache() method is an alias for cache_url().
-    'default': env.cache(),
-
-    # read os.environ['REDIS_URL']
-    'redis': env.cache_url('REDIS_URL')
 }
 
 # Password validation
